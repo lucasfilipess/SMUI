@@ -1,29 +1,35 @@
-// import { useAuth } from 'hooks';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router-dom';
 
 import { Sidebar } from '@/components';
-import { navigation, secondaryNavigation } from '@/config';
+import { getNavigation } from '@/config';
 import { useAuth } from '@/hooks';
+import { convertToPath } from '@/utils';
 
 export type Props = {
   component: React.ComponentType;
   isPrivate?: boolean;
+  title: string;
 };
 
 const RouteElement: React.FC<Props> = ({
   component: RouteComponent,
   isPrivate = false,
+  title,
 }) => {
-  const { user } = useAuth();
+  const { t } = useTranslation();
 
-  if (isPrivate === !!user) {
+  const { isAuthenticated, user } = useAuth();
+  const { navigation } = getNavigation();
+
+  useEffect(() => {
+    document.title = `CRM UI | ${title}`;
+  }, [title]);
+
+  if (isPrivate === isAuthenticated) {
     return isPrivate ? (
-      <Sidebar
-        user={user}
-        navigation={navigation}
-        secondaryNavigation={secondaryNavigation}
-      >
+      <Sidebar user={user} navigation={navigation}>
         <RouteComponent />
       </Sidebar>
     ) : (
@@ -33,7 +39,7 @@ const RouteElement: React.FC<Props> = ({
 
   return (
     <Navigate
-      to={isPrivate ? '/' : '/dashboard'}
+      to={isPrivate ? '/' : convertToPath([t('navigation.dashboard')])}
       state={isPrivate ? { from: location } : null}
     />
   );

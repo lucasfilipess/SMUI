@@ -1,0 +1,21 @@
+{
+  "navigation": {
+    "dashboard": "Painel",
+    "customers": "Clientes",
+    "register-customer": "Cadastrar Cliente"
+  },
+  "sidebar": {
+    "search": "Pesquisar",
+    "options": {
+      "profile": "Perfil",
+      "settings": "Configurações",
+      "support": "Suporte",
+      "sign-out": "Sair"
+    }
+  },
+  "not-found": {
+    "title": "Página não encontrada",
+    "subtitle": "Desculpe, não encontramos a página que você está procurando.",
+    "home-btn-label": "Voltar para a tela principal"
+  }
+}

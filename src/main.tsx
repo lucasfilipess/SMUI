@@ -1,4 +1,7 @@
-import '@/index.css';
+import '@/styles/tailwind.css';
+import '@/styles/scrollbar.css';
+import '@/i18n';
+import '@/utils/string.extension';
 
 import React from 'react';
 import ReactDOM from 'react-dom';

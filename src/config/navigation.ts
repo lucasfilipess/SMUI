@@ -1,13 +1,7 @@
-import {
-  CalendarIcon,
-  CogIcon,
-  HomeIcon,
-  MagnifyingGlassCircleIcon,
-  MapIcon,
-  MegaphoneIcon,
-  SquaresPlusIcon,
-  UserGroupIcon,
-} from '@heroicons/react/24/outline';
+import { HomeIcon, MagnifyingGlassCircleIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from 'react-i18next';
+
+import { convertToPath } from '@/utils';
 
 export type NavigationProps = {
   name: string;
@@ -20,16 +14,21 @@ export type NavigationProps = {
   ) => JSX.Element;
 }[];
 
-export const navigation: NavigationProps = [
-  { name: 'Dashboard', to: '/dashboard', icon: HomeIcon },
-  { name: 'Calendar', to: '/calendar', icon: CalendarIcon },
-  { name: 'Teams', to: '/teams', icon: UserGroupIcon },
-  { name: 'Directory', to: '/directory', icon: MagnifyingGlassCircleIcon },
-  { name: 'Announcements', to: '/announcements', icon: MegaphoneIcon },
-  { name: 'Office Map', to: '/office-map', icon: MapIcon },
-];
+export const getNavigation = () => {
+  const { t } = useTranslation();
 
-export const secondaryNavigation: NavigationProps = [
-  { name: 'Apps', to: '/apps', icon: SquaresPlusIcon },
-  { name: 'Settings', to: '/settings', icon: CogIcon },
-];
+  const navigation: NavigationProps = [
+    {
+      name: t('navigation.dashboard'),
+      to: convertToPath([t('navigation.dashboard')]),
+      icon: HomeIcon,
+    },
+    {
+      name: t('navigation.customers'),
+      to: convertToPath([t('navigation.customers')]),
+      icon: MagnifyingGlassCircleIcon,
+    },
+  ];
+
+  return { navigation };
+};
